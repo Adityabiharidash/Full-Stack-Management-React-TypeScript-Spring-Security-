@@ -1,0 +1,12 @@
+package com.nt.service;
+
+import java.util.List;
+
+import com.nt.entity.Country;
+import com.nt.entity.Language;
+
+public interface IUserMangementService {
+	public Language addNewLang(Language user);
+	public Language addNewCountry(Countryr user);
+	public List<Language> showAllUser() ;
+}

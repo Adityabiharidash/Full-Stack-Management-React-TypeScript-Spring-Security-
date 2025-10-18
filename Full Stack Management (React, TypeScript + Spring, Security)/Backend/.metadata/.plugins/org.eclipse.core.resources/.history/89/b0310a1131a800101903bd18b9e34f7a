@@ -1,0 +1,27 @@
+package com.nt.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nt.entity.User;
+import com.nt.repository.IRepository;
+
+@Service
+public class UserService implements IUserMangementService {
+	@Autowired
+	private IRepository repo;
+	
+	@Override
+	public User addNewUser(User user) {
+		User save = repo.save(user);
+		return save;
+	}
+	
+	@Override
+	public List<User> showAllUser() {
+		List<User> all = repo.findAll();
+		return all;
+	}
+}

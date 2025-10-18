@@ -1,0 +1,46 @@
+package com.nt.controler;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nt.entity.Language;
+import com.nt.service.UserService;
+
+@RestController
+@RequestMapping("/language")
+@CrossOrigin(origins = "http://localhost:5173")
+public class LanguageController {
+
+	@Autowired
+    private UserService service;
+
+    @PostMapping("/addlang")
+    public Language newLanguage(@RequestBody Language newLang) {
+        return service.addNewLang(newLang);
+    }
+
+    @GetMapping("/users")
+    public List<Language> getAllUser() {
+        return service.showAllUser();
+    }
+
+    @PutMapping("/update/{id}")
+    public Language updateLanguage(@PathVariable Long id, @RequestBody Language lang) {
+        return service.updateLang(id, lang);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteLanguage(@PathVariable Long id) {
+        service.deleteLang(id);
+    }
+}

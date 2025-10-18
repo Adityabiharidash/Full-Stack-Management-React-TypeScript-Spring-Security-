@@ -1,0 +1,56 @@
+package com.nt.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nt.entity.Student;
+import com.nt.repository.IRepositoryStudent;
+
+@Service
+public class StudentMgmtServiceIMPL implements IStudentMgmtService {
+
+    @Autowired
+    private IRepositoryStudent repo;
+
+    @Override
+    public List<Student> getAllStudents() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Student addStudent(Student d) {
+        return repo.save(d);
+    }
+
+    @Override
+    public List<Student> getRecordByName(String name) {
+        return repo.findByName(name);
+    }
+
+    @Override
+    public List<Student> getRecordByEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
+    @Override
+    public List<Student> getRecordByMobile(Integer mob) {
+        return repo.findByMobile(mob);
+    }
+
+    @Override
+    public List<Student> getRecordByCountry(String country) {
+        return repo.findByCountry(country);
+    }
+
+    @Override
+    public List<Student> getRecordByState(String state) {
+        return repo.findByState(state);
+    }
+
+    @Override
+    public List<Student> getRecordByDistrict(String district) {
+        return repo.findByDistrict(district);
+    }
+}

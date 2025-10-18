@@ -1,0 +1,81 @@
+package com.nt.controler;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
+
+import com.nt.entity.Country;
+import com.nt.entity.Customer;
+import com.nt.service.ICustomerMgmtService;
+
+@RestController
+@RequestMapping("/customers")
+@CrossOrigin(origins = "http://localhost:5173")
+public class CustomerController {
+
+    @Autowired
+    private ICustomerMgmtService service;
+    
+    @PostMapping("/add")
+    public Customer addCustomer(@RequestBody Map<String, String> data) throws IOException {
+        String custName = data.get("custName");
+        String custEmail = data.get("custEmail");
+        String custMob = data.get("custMob");
+        String base64Photo = data.get("photo");
+
+        // Decode base64 to bytes
+        if (base64Photo.contains(",")) { // Remove "data:image/png;base64," prefix if exists
+            base64Photo = base64Photo.split(",")[1];
+        }
+        byte[] photoBytes = Base64.getDecoder().decode(base64Photo);
+
+        Customer c = new Customer();
+        c.setCustName(custName);
+        c.setCustEmail(custEmail);
+        c.setCustMob(custMob);
+        c.setPhotoxxx(photoBytes);
+
+        return service.addCustomer(c);
+    }
+
+
+    // Add customer with photo
+//    @PostMapping(value = "/add", consumes = {"multipart/form-data"})
+//    public ResponseEntity<?> addCustomer(
+//            @RequestParam("custName") String custName,
+//            @RequestParam("custEmail") String custEmail,
+//            @RequestParam("custMob") String custMob,
+//            @RequestParam("photo") MultipartFile photo) {
+//
+//        try {
+//            if (photo == null || photo.isEmpty()) {
+//                return ResponseEntity.badRequest().body("Photo is required");
+//            }
+//
+//            Customer c = new Customer();
+//            c.setCustName(custName);
+//            c.setCustEmail(custEmail);
+//            c.setCustMob(custMob);
+//            c.setPhotoxxx(photo.getBytes()); // Make sure column type is LONGBLOB
+//
+//            Customer saved = service.addCustomer(c);
+//            return ResponseEntity.ok(saved);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
+//        }
+//    }
+
+    // Get all customers
+    @GetMapping("/all")
+    public List<Customer> getAllCustomers() {
+        return service.getAllCustomers();
+    }
+}

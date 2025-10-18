@@ -1,0 +1,47 @@
+package com.nt.entity;
+
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Table(name = "Employee")
+@Data
+public class EmployeeDDL {
+	@Id
+	@SequenceGenerator(name = "gen7", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen7")
+	private Long id;
+
+	@Column(nullable = false, name = "empDName")
+	private String empDName;
+	
+	@Column(nullable = false, name = "empDEmail")
+	private String empDEmail;
+	
+	@Column(nullable = false, name = "empDMob")
+	private String empDMob;
+	
+	@Column(nullable = false, name = "empDCountry")
+	private String empDCountry;
+	
+	@Column(nullable = false, name = "empDState")
+	private String empDState;
+	
+	@Column(nullable = false, name = "empDDistrict")
+	private String empDDistrict;
+	
+	@Column(nullable = false, name = "empDGender")
+	private String empDGender;
+	
+	@Column(nullable = false, name = "empDLanguage")
+	private List<String> empDLanguage;
+
+}
